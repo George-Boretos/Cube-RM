@@ -534,3 +534,225 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+/* GCP Integration Page Styles */
+.gcp-hero {
+    padding: 8rem 2rem 4rem;
+    background: linear-gradient(135deg, #0d1117 0%, #1a1f2e 100%);
+    text-align: center;
+}
+
+.gcp-banner {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.gcp-logo {
+    width: 200px;
+    height: auto;
+    margin-bottom: 2rem;
+}
+
+.architecture {
+    padding: 4rem 2rem;
+}
+
+.architecture-diagram {
+    background: var(--darker-bg);
+    border-radius: 20px;
+    padding: 3rem;
+    margin-top: 2rem;
+    border: 1px solid var(--border-color);
+}
+
+.layer {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.layer:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.layer h3 {
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+}
+
+.services {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.service-card {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+    box-shadow: 0 5px 15px rgba(66, 133, 244, 0.1);
+}
+
+.service-card.gcp {
+    border-left: 4px solid var(--primary);
+}
+
+.service-card.gcp.highlight {
+    border-color: var(--warning);
+    box-shadow: 0 0 20px rgba(251, 188, 5, 0.2);
+}
+
+.service-card i {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.service-card h4 {
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.service-card p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.benefits {
+    padding: 6rem 2rem;
+    background: var(--darker-bg);
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.benefit-card {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    transition: transform 0.3s;
+}
+
+.benefit-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+}
+
+.benefit-icon {
+    font-size: 2.5rem;
+    color: var(--secondary);
+    margin-bottom: 1.5rem;
+}
+
+.technical-details {
+    padding: 6rem 2rem;
+}
+
+.tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.tech-card {
+    background: var(--darker-bg);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.tech-card h3 {
+    color: var(--primary);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tech-card p, .tech-card ul {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+.tech-card ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.tech-card li {
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.tech-card li:before {
+    content: "▸";
+    color: var(--primary);
+    position: absolute;
+    left: 0;
+}
+
+pre {
+    background: #1e1e1e;
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.9rem;
+    border: 1px solid var(--border-color);
+}
+
+code {
+    color: #569cd6;
+}
+
+/* 确保在移动设备上GCP页面也响应式 */
+@media (max-width: 768px) {
+    .gcp-hero {
+        padding: 6rem 1rem 3rem;
+    }
+    
+    .gcp-logo {
+        width: 150px;
+    }
+    
+    .architecture-diagram {
+        padding: 1.5rem;
+    }
+    
+    .services {
+        grid-template-columns: 1fr;
+    }
+    
+    .tech-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .gcp-hero h1 {
+        font-size: 1.8rem;
+    }
+    
+    .layer h3 {
+        font-size: 1.1rem;
+    }
+    
+    .service-card {
+        padding: 1rem;
+    }
+}

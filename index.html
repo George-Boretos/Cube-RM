@@ -1,0 +1,1721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cube RM | AI-Powered Tender Intelligence on Google Cloud</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #4285f4;
+            --primary-dark: #3367d6;
+            --secondary: #34a853;
+            --accent: #ea4335;
+            --warning: #fbbc05;
+            --dark-bg: #0d1117;
+            --darker-bg: #010409;
+            --card-bg: #161b22;
+            --border-color: #30363d;
+            --text-primary: #f0f6fc;
+            --text-secondary: #8b949e;
+            --gradient-start: #4285f4;
+            --gradient-end: #34a853;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--darker-bg);
+            border-bottom: 1px solid var(--border-color);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: var(--primary);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--text-primary);
+        }
+
+        .nav-link.highlight {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            padding: 6rem 2rem 2rem;
+            background: linear-gradient(135deg, var(--darker-bg) 0%, var(--dark-bg) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(66, 133, 244, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 20%, rgba(52, 168, 83, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            z-index: 1;
+        }
+
+        .hero-badge {
+            margin-bottom: 2rem;
+        }
+
+        .gcp-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(66, 133, 244, 0.1);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn-primary, .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(66, 133, 244, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--text-secondary);
+            transform: translateY(-2px);
+        }
+
+        .hero-visual {
+            position: relative;
+            height: 500px;
+        }
+
+        .ai-visualization {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .data-node {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: var(--card-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 20px rgba(66, 133, 244, 0.3);
+        }
+
+        .data-node:nth-child(2) {
+            color: var(--secondary);
+            border-color: var(--secondary);
+        }
+
+        .data-node:nth-child(3) {
+            color: var(--warning);
+            border-color: var(--warning);
+        }
+
+        .connection-line {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 80%;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                var(--primary) 20%, 
+                var(--secondary) 50%, 
+                var(--warning) 80%, 
+                transparent
+            );
+            transform: translate(-50%, -50%) rotate(45deg);
+            animation: rotate 20s linear infinite;
+        }
+
+        /* Page Sections */
+        .page-section {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            padding: 6rem 2rem;
+            min-height: 80vh;
+        }
+
+        .page-section.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Home Content */
+        #home {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 4rem 2rem;
+            background: var(--darker-bg);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Features */
+        .features {
+            padding: 6rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(90deg, var(--text-primary), var(--text-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(66, 133, 244, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* GCP Integration Styles */
+        .gcp-hero {
+            padding: 8rem 2rem 4rem;
+            background: linear-gradient(135deg, #0d1117 0%, #1a1f2e 100%);
+            text-align: center;
+        }
+
+        .gcp-banner {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .gcp-logo {
+            width: 200px;
+            height: auto;
+            margin-bottom: 2rem;
+        }
+
+        .architecture {
+            padding: 4rem 2rem;
+        }
+
+        .architecture-diagram {
+            background: var(--darker-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-top: 2rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .layer {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .layer:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .layer h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 5px 15px rgba(66, 133, 244, 0.1);
+        }
+
+        .service-card.gcp {
+            border-left: 4px solid var(--primary);
+        }
+
+        .service-card.gcp.highlight {
+            border-color: var(--warning);
+            box-shadow: 0 0 20px rgba(251, 188, 5, 0.2);
+        }
+
+        .service-card i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .service-card h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .service-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .benefits {
+            padding: 6rem 2rem;
+            background: var(--darker-bg);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .benefit-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .benefit-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .technical-details {
+            padding: 6rem 2rem;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .tech-card {
+            background: var(--darker-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .tech-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tech-card p, .tech-card ul {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .tech-card li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .tech-card li:before {
+            content: "▸";
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+        }
+
+        pre {
+            background: #1e1e1e;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9rem;
+            border: 1px solid var(--border-color);
+        }
+
+        code {
+            color: #569cd6;
+        }
+
+        /* About Page Styles */
+        .about-hero {
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+        }
+
+        .company-info {
+            padding: 4rem 2rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .info-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .info-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Solutions Page Styles */
+        .solutions-hero {
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+        }
+
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .solution-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s;
+        }
+
+        .solution-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .solution-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Contact Page Styles */
+        .contact-hero {
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .contact-form {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background: var(--darker-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .contact-info {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .contact-item {
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .contact-item i {
+            color: var(--primary);
+            margin-top: 3px;
+        }
+
+        /* CTA */
+        .cta {
+            padding: 6rem 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--darker-bg) 0%, var(--dark-bg) 100%);
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--darker-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand p {
+            color: var(--text-secondary);
+            margin: 1rem 0;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--card-bg);
+            border-radius: 50%;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-links h3,
+        .footer-contact h3 {
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-links a {
+            display: block;
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-bottom: 0.8rem;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-contact p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-contact i {
+            color: var(--primary);
+            width: 20px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border-color);
+            padding-top: 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom i {
+            color: var(--accent);
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(66, 133, 244, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(66, 133, 244, 0.6);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding-top: 8rem;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-actions {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .gcp-hero {
+                padding: 6rem 1rem 3rem;
+            }
+            
+            .gcp-logo {
+                width: 150px;
+            }
+            
+            .architecture-diagram {
+                padding: 1.5rem;
+            }
+            
+            .services {
+                grid-template-columns: 1fr;
+            }
+            
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .gcp-hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .layer h3 {
+                font-size: 1.1rem;
+            }
+            
+            .service-card {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo" onclick="showSection('home')">
+                <i class="fas fa-cube"></i>
+                <span>Cube RM</span>
+            </a>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link active" onclick="showSection('home')">Home</a>
+                <a href="#about" class="nav-link" onclick="showSection('about')">About</a>
+                <a href="#solutions" class="nav-link" onclick="showSection('solutions')">Solutions</a>
+                <a href="#gcp" class="nav-link highlight" onclick="showSection('gcp')">GCP Integration</a>
+                <a href="#contact" class="nav-link" onclick="showSection('contact')">Contact</a>
+            </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="page-section active">
+        <!-- Hero Section -->
+        <div class="hero">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="gcp-badge">
+                        <i class="fab fa-google"></i>
+                        Google Cloud Partner
+                    </span>
+                </div>
+                <h1 class="hero-title">
+                    AI-Powered Tender Intelligence
+                    <span class="gradient-text">Built on Google Cloud</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Empowering Life Sciences with AI, NLP & Machine Learning for Revenue Optimization
+                </p>
+                <div class="hero-actions">
+                    <a href="#gcp" class="btn-primary" onclick="showSection('gcp')">
+                        <i class="fas fa-cloud"></i>
+                        Explore GCP Integration
+                    </a>
+                    <a href="#contact" class="btn-secondary" onclick="showSection('contact')">
+                        <i class="fas fa-rocket"></i>
+                        Request Demo
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="ai-visualization">
+                    <div class="data-node" style="top: 20%; left: 30%;">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <div class="data-node" style="top: 40%; right: 25%;">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="data-node" style="bottom: 30%; left: 40%;">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="connection-line"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Stats -->
+        <div class="stats-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="stat-value">Global</div>
+                        <div class="stat-label">Tender Coverage</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="stat-value">AI/NLP</div>
+                        <div class="stat-label">Powered Analysis</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <div class="stat-value">Google Cloud</div>
+                        <div class="stat-label">Native Platform</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <div class="stat-value">30%+</div>
+                        <div class="stat-label">Revenue Growth</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features -->
+        <div class="features">
+            <div class="container">
+                <h2 class="section-title">Intelligent Revenue Management Suite</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-search-dollar"></i>
+                        </div>
+                        <h3>Tender Intelligence</h3>
+                        <p>AI-driven capture and analysis of global tender opportunities using Google Cloud NLP</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h3>CPQ Automation</h3>
+                        <p>Automated Configure-Price-Quote system with ML-powered pricing optimization</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-network"></i>
+                        </div>
+                        <h3>Market Analytics</h3>
+                        <p>Real-time analytics and insights powered by BigQuery and Looker</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Secure & Compliant</h3>
+                        <p>Enterprise-grade security leveraging Google Cloud's infrastructure</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta">
+            <div class="container">
+                <h2>Ready to Transform Your Tender Process?</h2>
+                <p>Experience the power of AI and Google Cloud integration</p>
+                <a href="#contact" class="btn-primary" onclick="showSection('contact')">
+                    <i class="fas fa-calendar-check"></i>
+                    Schedule a Demo
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="page-section">
+        <div class="about-hero">
+            <div class="container">
+                <h1 class="section-title">About Cube RM</h1>
+                <p class="hero-subtitle">Leading Global Tender Software, AI & Data Company</p>
+            </div>
+        </div>
+        
+        <div class="company-info">
+            <div class="container">
+                <h2 class="section-title">Our Mission</h2>
+                <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem; color: var(--text-secondary); font-size: 1.1rem;">
+                    Cube RM is the leading global Tender Software, AI & Data company, empowering Life Sciences organizations 
+                    to find more business opportunities and build market intelligence. Our platforms use the latest AI & NLP 
+                    technology to capture key tender market data globally and transform it into actionable market intelligence.
+                </p>
+                
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3><i class="fas fa-bullseye"></i> Our Vision</h3>
+                        <p>To revolutionize revenue management in Life Sciences through AI-powered intelligence and automation.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3><i class="fas fa-rocket"></i> Our Impact</h3>
+                        <p>Empowering large enterprises to accelerate revenue growth and increase productivity by 40%+.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3><i class="fas fa-cogs"></i> Our Technology</h3>
+                        <p>Leveraging state-of-the-art Natural Language Processing and Machine Learning technologies on Google Cloud.</p>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 4rem; text-align: center;">
+                    <h3 style="color: var(--primary); margin-bottom: 2rem;">Company Information</h3>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <strong>Location:</strong>
+                                <p>Switzerland</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <strong>Email:</strong>
+                                <p>george@cuberm.blog</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-globe"></i>
+                            <div>
+                                <strong>Website:</strong>
+                                <p>https://cuberm.blog/</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions Section -->
+    <section id="solutions" class="page-section">
+        <div class="solutions-hero">
+            <div class="container">
+                <h1 class="section-title">Our Solutions</h1>
+                <p class="hero-subtitle">Comprehensive Revenue Management & Optimization Suite</p>
+            </div>
+        </div>
+        
+        <div class="solutions">
+            <div class="container">
+                <div class="solutions-grid">
+                    <div class="solution-card">
+                        <div class="solution-icon">
+                            <i class="fas fa-search-dollar"></i>
+                        </div>
+                        <h3>Tender Intelligence Platform</h3>
+                        <p>AI-powered capture of global tender opportunities with real-time market intelligence dashboards.</p>
+                        <ul style="margin-top: 1rem; color: var(--text-secondary);">
+                            <li>Global tender coverage</li>
+                            <li>AI/NLP data extraction</li>
+                            <li>Real-time market insights</li>
+                            <li>Competitive analysis</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="solution-card">
+                        <div class="solution-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Revenue Optimization Suite</h3>
+                        <p>End-to-end revenue management with CPQ automation and pricing guidance.</p>
+                        <ul style="margin-top: 1rem; color: var(--text-secondary);">
+                            <li>Intuitive tender management</li>
+                            <li>CPQ system with pricing guidance</li>
+                            <li>Automated quote generation</li>
+                            <li>Revenue analytics dashboard</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="solution-card">
+                        <div class="solution-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3>AI & Data Analytics</h3>
+                        <p>Advanced analytics and predictive modeling for strategic decision making.</p>
+                        <ul style="margin-top: 1rem; color: var(--text-secondary);">
+                            <li>Predictive analytics</li>
+                            <li>Machine learning models</li>
+                            <li>Natural language processing</li>
+                            <li>Custom data insights</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="solution-card">
+                        <div class="solution-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h3>Process Automation</h3>
+                        <p>Software automation for tender processes and workflow optimization.</p>
+                        <ul style="margin-top: 1rem; color: var(--text-secondary);">
+                            <li>Workflow automation</li>
+                            <li>Document processing</li>
+                            <li>Integration APIs</li>
+                            <li>Process optimization</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 4rem; text-align: center;">
+                    <h3 style="color: var(--primary); margin-bottom: 2rem;">Key Benefits</h3>
+                    <div class="benefits-grid">
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <i class="fas fa-chart-bar"></i>
+                            </div>
+                            <h3>30%+ Revenue Growth</h3>
+                            <p>Accelerate revenue growth through intelligent tender management</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <h3>70% Time Savings</h3>
+                            <p>Automate manual processes and reduce tender preparation time</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <i class="fas fa-bullseye"></i>
+                            </div>
+                            <h3>Higher Win Rates</h3>
+                            <p>Improve tender success rates with data-driven insights</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GCP Integration Section -->
+    <section id="gcp" class="page-section">
+        <div class="gcp-hero">
+            <div class="container">
+                <div class="gcp-banner">
+                    <img src="https://www.gstatic.com/devrel-devsite/prod/vab69b61334e8b20e8e1aa7e6b1c6d6c63bff3f98c6a7d7d78d91219d4ff8c6fe/cloud/images/cloud-logo.svg" 
+                         alt="Google Cloud" class="gcp-logo">
+                    <h1 class="section-title">Deep Integration with Google Cloud Platform</h1>
+                    <p class="hero-subtitle">Leveraging Google Cloud's AI/ML, Data Analytics, and Security Services</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Architecture Overview -->
+        <div class="architecture">
+            <div class="container">
+                <h2 class="section-title">Cloud Architecture</h2>
+                <div class="architecture-diagram">
+                    <div class="layer">
+                        <h3>Data Ingestion Layer</h3>
+                        <div class="services">
+                            <div class="service-card gcp">
+                                <i class="fab fa-google"></i>
+                                <h4>Cloud Storage</h4>
+                                <p>Raw tender document storage</p>
+                            </div>
+                            <div class="service-card gcp">
+                                <i class="fas fa-database"></i>
+                                <h4>Pub/Sub</h4>
+                                <p>Real-time data streaming</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="layer">
+                        <h3>AI/ML Processing Layer</h3>
+                        <div class="services">
+                            <div class="service-card gcp highlight">
+                                <i class="fas fa-brain"></i>
+                                <h4>Cloud AI Platform</h4>
+                                <p>ML model training & deployment</p>
+                            </div>
+                            <div class="service-card gcp">
+                                <i class="fas fa-language"></i>
+                                <h4>Cloud NLP</h4>
+                                <p>Multi-language text processing</p>
+                            </div>
+                            <div class="service-card gcp">
+                                <i class="fas fa-robot"></i>
+                                <h4>AutoML</h4>
+                                <p>Custom model development</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="layer">
+                        <h3>Data Analytics Layer</h3>
+                        <div class="services">
+                            <div class="service-card gcp">
+                                <i class="fas fa-chart-bar"></i>
+                                <h4>BigQuery</h4>
+                                <p>Enterprise data warehouse</p>
+                            </div>
+                            <div class="service-card gcp">
+                                <i class="fas fa-search"></i>
+                                <h4>Looker</h4>
+                                <p>Business intelligence</p>
+                            </div>
+                            <div class="service-card gcp">
+                                <i class="fas fa-bolt"></i>
+                                <h4>Dataflow</h4>
+                                <p>Stream & batch processing</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="layer">
+                        <h3>Application Layer</h3>
+                        <div class="services">
+                            <div class="service-card gcp">
+                                <i class="fas fa-cube"></i>
+                                <h4>GKE</h4>
+                                <p>Kubernetes orchestration</p>
+                            </div>
+                            <div class="service-card gcp">
+                                <i class="fas fa-server"></i>
+                                <h4>Cloud Run</h4>
+                                <p>Serverless containers</p>
+                            </div>
+                            <div class="service-card gcp">
+                                <i class="fas fa-code"></i>
+                                <h4>Cloud Functions</h4>
+                                <p>Event-driven microservices</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="layer">
+                        <h3>Security & Operations</h3>
+                        <div class="services">
+                            <div class="service-card gcp">
+                                <i class="fas fa-shield-alt"></i>
+                                <h4>IAM</h4>
+                                <p>Identity & access management</p>
+                            </div>
+                            <div class="service-card gcp">
+                                <i class="fas fa-eye"></i>
+                                <h4>Security Command Center</h4>
+                                <p>Threat detection</p>
+                            </div>
+                            <div class="service-card gcp">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <h4>Cloud Monitoring</h4>
+                                <p>Performance insights</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Benefits -->
+        <div class="benefits">
+            <div class="container">
+                <h2 class="section-title">Benefits of GCP Integration</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3>Scalability</h3>
+                        <p>Automatic scaling to handle global tender data volumes with GKE and Cloud Run</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h3>Security</h3>
+                        <p>Enterprise-grade security with IAM, VPC Service Controls, and encryption</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3>Performance</h3>
+                        <p>Real-time analytics with BigQuery and low-latency processing</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <h3>Cost Efficiency</h3>
+                        <p>Pay-per-use model with Cloud Functions and optimized resource allocation</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technical Details -->
+        <div class="technical-details">
+            <div class="container">
+                <h2 class="section-title">Technical Implementation</h2>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <h3><i class="fas fa-code"></i> Infrastructure as Code</h3>
+                        <p>Deployed using Terraform with Google Cloud Provider for reproducible infrastructure</p>
+                        <pre><code>resource "google_container_cluster" "primary" {
+  name     = "cube-rm-gke"
+  location = "europe-west1"
+  
+  node_pool {
+    name       = "primary"
+    node_count = 3
+    node_config {
+      machine_type = "e2-medium"
+    }
+  }
+}</code></pre>
+                    </div>
+                    
+                    <div class="tech-card">
+                        <h3><i class="fas fa-cogs"></i> CI/CD Pipeline</h3>
+                        <p>Automated deployment using Cloud Build and Cloud Deploy</p>
+                        <ul>
+                            <li>GitHub Actions for source control</li>
+                            <li>Cloud Build for container builds</li>
+                            <li>Artifact Registry for Docker images</li>
+                            <li>Cloud Deploy for progressive rollouts</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tech-card">
+                        <h3><i class="fas fa-chart-line"></i> Monitoring & Logging</h3>
+                        <p>Comprehensive observability with Cloud Monitoring and Logging</p>
+                        <ul>
+                            <li>Custom metrics with OpenTelemetry</li>
+                            <li>Real-time dashboards with Looker</li>
+                            <li>Alert policies for SLOs</li>
+                            <li>Error Reporting integration</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta">
+            <div class="container">
+                <h2>Start Your GCP Journey with Cube RM</h2>
+                <p>Contact us for a technical deep-dive or architecture review</p>
+                <a href="#contact" class="btn-primary" onclick="showSection('contact')">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    Request Technical Consultation
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="page-section">
+        <div class="contact-hero">
+            <div class="container">
+                <h1 class="section-title">Contact Us</h1>
+                <p class="hero-subtitle">Get in touch to learn more about our Google Cloud solutions</p>
+            </div>
+        </div>
+        
+        <div class="contact">
+            <div class="container">
+                <div class="contact-grid">
+                    <div class="contact-form">
+                        <h3 style="color: var(--primary); margin-bottom: 2rem;">Send us a message</h3>
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label for="name">Name *</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="company">Company</label>
+                                <input type="text" id="company" name="company">
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message *</label>
+                                <textarea id="message" name="message" required></textarea>
+                            </div>
+                            <button type="submit" class="btn-primary" style="width: 100%;">
+                                <i class="fas fa-paper-plane"></i>
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <div class="contact-info">
+                        <h3 style="color: var(--primary); margin-bottom: 2rem;">Contact Information</h3>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <strong>Location</strong>
+                                <p>Switzerland</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <strong>Email</strong>
+                                <p>george@cuberm.blog</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-globe"></i>
+                            <div>
+                                <strong>Website</strong>
+                                <p>https://cuberm.blog/</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <strong>Google Cloud Partnership</strong>
+                                <p>Solution Qualification Submitted</p>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 2rem; padding: 1rem; background: rgba(66, 133, 244, 0.1); border-radius: 8px;">
+                            <h4 style="color: var(--primary); margin-bottom: 0.5rem;"><i class="fas fa-info-circle"></i> Google Cloud Integration</h4>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                                Our solution leverages Google Cloud Platform services including AI Platform, BigQuery, 
+                                Cloud NLP, GKE, and Cloud Functions to deliver intelligent tender management solutions.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="#home" class="logo" onclick="showSection('home')">
+                        <i class="fas fa-cube"></i>
+                        <span>Cube RM</span>
+                    </a>
+                    <p>Leading Tender Software, AI & Data company empowering Life Sciences</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <a href="#home" onclick="showSection('home')">Home</a>
+                    <a href="#about" onclick="showSection('about')">About Us</a>
+                    <a href="#solutions" onclick="showSection('solutions')">Solutions</a>
+                    <a href="#gcp" onclick="showSection('gcp')">GCP Integration</a>
+                    <a href="#contact" onclick="showSection('contact')">Contact</a>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Switzerland</p>
+                    <p><i class="fas fa-envelope"></i> george@cuberm.blog</p>
+                    <p><i class="fas fa-globe"></i> https://cuberm.blog/</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Cube RM. All rights reserved.</p>
+                <p>Built with <i class="fas fa-heart"></i> on Google Cloud</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+            if (navMenu.style.display === 'flex') {
+                navMenu.style.flexDirection = 'column';
+                navMenu.style.position = 'absolute';
+                navMenu.style.top = '100%';
+                navMenu.style.left = '0';
+                navMenu.style.right = '0';
+                navMenu.style.background = 'var(--darker-bg)';
+                navMenu.style.padding = '2rem';
+                navMenu.style.gap = '1.5rem';
+                navMenu.style.borderTop = '1px solid var(--border-color)';
+            }
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                if (window.innerWidth <= 768) {
+                    navMenu.style.display = 'none';
+                }
+            }
+        });
+
+        // Section Navigation
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Update navigation links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Update active link
+            const activeLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+            
+            // Close mobile menu if open
+            if (window.innerWidth <= 768) {
+                navMenu.style.display = 'none';
+            }
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Initialize with home section
+        showSection('home');
+
+        // Contact form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                company: document.getElementById('company').value,
+                message: document.getElementById('message').value
+            };
+            
+            // In a real implementation, you would send this to a server
+            // For now, we'll just show a success message
+            alert('Thank you for your message! We will contact you soon at ' + formData.email);
+            
+            // Reset form
+            this.reset();
+        });
+
+        // Animate stats when in viewport
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statCards = entry.target.querySelectorAll('.stat-card');
+                    statCards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, index * 200);
+                    });
+                    
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe stats section
+        const statsSection = document.querySelector('.stats-section');
+        if (statsSection) {
+            observer.observe(statsSection);
+        }
+
+        // Initialize stat cards with hidden state
+        document.querySelectorAll('.stat-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            const heroVisual = document.querySelector('.hero-visual');
+            
+            if (hero && heroVisual) {
+                heroVisual.style.transform = `translateY(${scrolled * 0.1}px)`;
+            }
+        });
+
+        // Handle initial page load with hash
+        window.addEventListener('DOMContentLoaded', () => {
+            const hash = window.location.hash.substring(1);
+            if (hash && document.getElementById(hash)) {
+                showSection(hash);
+            }
+        });
+
+        // Handle browser back/forward buttons
+        window.addEventListener('hashchange', () => {
+            const hash = window.location.hash.substring(1);
+            if (hash && document.getElementById(hash)) {
+                showSection(hash);
+            }
+        });
+    </script>
+</body>
+</html>
